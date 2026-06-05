@@ -1,0 +1,44 @@
+digraph dataflow {
+    rankdir=LR;
+    bgcolor="white";
+    node [shape=box, style="rounded,filled", fontname="Inter, Helvetica", fontsize=11];
+    edge [fontname="Inter, Helvetica", fontsize=10];
+
+    subgraph cluster_py {
+        label="pyarrow.compute  (29 ms)";
+        labeljust=l;
+        fontname="Inter, Helvetica";
+        fontsize=12;
+        style="rounded,filled";
+        fillcolor="#eef5ff";
+        color="#1f77b4";
+
+        py_disk    [label="orders.parquet\non disk",          fillcolor="#dde9f7"];
+        py_decode  [label="C++ Parquet decoder\n(bulk, SIMD)",fillcolor="#cfe0f3"];
+        py_arr     [label="Arrow ChunkedArray\n(zero-copy)",   fillcolor="#cfe0f3"];
+        py_compute [label="pc.min_max / pc.sum\n(C++ kernels)",fillcolor="#cfe0f3"];
+        py_out     [label="scalar → Python",                   fillcolor="#a8c8e8"];
+
+        py_disk -> py_decode -> py_arr -> py_compute -> py_out;
+    }
+
+    subgraph cluster_spark {
+        label="Spark 3.5  (138 ms)";
+        labeljust=l;
+        fontname="Inter, Helvetica";
+        fontsize=12;
+        style="rounded,filled";
+        fillcolor="#fdecec";
+        color="#d62728";
+
+        sp_disk    [label="orders.parquet\non disk",                fillcolor="#f6d6d6"];
+        sp_decode  [label="VectorizedParquetRecordReader\n(Java)",  fillcolor="#f0c5c5"];
+        sp_row     [label="ColumnarBatch\n→ InternalRow",           fillcolor="#f0c5c5"];
+        sp_plan    [label="Catalyst optimizer\n+ task scheduler",   fillcolor="#f0c5c5"];
+        sp_codegen [label="WholeStageCodegen\n(generated Java)",    fillcolor="#f0c5c5"];
+        sp_out     [label="DataFrame → Row",                         fillcolor="#e08e8e"];
+
+        sp_disk -> sp_decode -> sp_row -> sp_plan -> sp_codegen -> sp_out;
+    }
+
+}

@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "parqshowcase"
+version = "0.1.0"
+description = "pyarrow.compute showcase: stats, add column, drop column"
+requires-python = ">=3.9"
+dependencies = ["pyarrow>=15"]
+
+[project.optional-dependencies]
+# Install with pip install -e 'presentation/python[bench]'
+bench = [
+    "matplotlib>=3.8",
+    "pandas>=2",
+    "pympler>=1.1",
+    "numpy>=1.26",
+]
+
+[project.scripts]
+parqshowcase-stats = "parqshowcase.stats:main"
+parqshowcase-add = "parqshowcase.add_column:main"
+parqshowcase-drop = "parqshowcase.drop_column:main"
+
+[tool.setuptools.packages.find]
+include = ["parqshowcase*"]

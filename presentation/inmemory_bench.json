@@ -1,0 +1,82 @@
+{
+  "n": 2000000,
+  "results": [
+    {
+      "name": "PyArrow Int64Array",
+      "tier": "arrow",
+      "time_ms": 0.58,
+      "mem_mb": 15.3,
+      "note": ""
+    },
+    {
+      "name": "NumPy int64 ndarray",
+      "tier": "arrow",
+      "time_ms": 0.57,
+      "mem_mb": 15.3,
+      "note": ""
+    },
+    {
+      "name": "array.array('q')",
+      "tier": "py_dense",
+      "time_ms": 73.54,
+      "mem_mb": 15.3,
+      "note": ""
+    },
+    {
+      "name": "list[int]",
+      "tier": "py_dense",
+      "time_ms": 46.64,
+      "mem_mb": 76.3,
+      "note": ""
+    },
+    {
+      "name": "tuple[int]",
+      "tier": "py_dense",
+      "time_ms": 46.76,
+      "mem_mb": 76.3,
+      "note": ""
+    },
+    {
+      "name": "list[dict] (records)",
+      "tier": "py_object",
+      "time_ms": 324.18,
+      "mem_mb": 428.3,
+      "note": ""
+    },
+    {
+      "name": "set[int]",
+      "tier": "py_set",
+      "time_ms": 240.68,
+      "mem_mb": 119.3,
+      "note": "(deduplicates \u2014 not equivalent to list stats)"
+    },
+    {
+      "name": "dict[int, None]",
+      "tier": "py_set",
+      "time_ms": 44.41,
+      "mem_mb": 135.3,
+      "note": "(deduplicates \u2014 not equivalent to list stats)"
+    },
+    {
+      "name": "pandas Series (numpy)",
+      "tier": "pandas",
+      "time_ms": 1.19,
+      "mem_mb": 15.3,
+      "note": ""
+    },
+    {
+      "name": "pandas Series (arrow backend)",
+      "tier": "pandas",
+      "time_ms": 1.5,
+      "mem_mb": 30.5,
+      "note": ""
+    },
+    {
+      "name": "PyArrow + parquet (uncompressed)",
+      "tier": "parquet",
+      "time_ms": 5.12,
+      "mem_mb": 15.8,
+      "note": "(disk size, not RAM)"
+    }
+  ]
+}

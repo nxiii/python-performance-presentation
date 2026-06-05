@@ -1,0 +1,32 @@
+{
+  "_comment": [],
+  "warmup_path": "wip/dynamicgen/data_warmup/orders/orders_000000.parquet",
+  "datasets": {
+    "one_file": {
+      "test_path": "wip/dynamicgen/data/orders/orders_000000.parquet",
+      "files": 1,
+      "rows": 2000000,
+      "size_mb": 99
+    },
+    "many_files": {
+      "test_path": "wip/dynamicgen/orders_many/orders/",
+      "files": 197,
+      "rows": 2000000,
+      "size_mb": 109
+    }
+  },
+  "one_file": {
+    "stats": { "pyarrow": 28.7, "java_arrow": 39.3, "spark": 138.3 },
+    "add_column": { "pyarrow": 856.0, "spark": 2569.3 },
+    "drop_column": { "pyarrow": 555.9, "spark": 1598.2 }
+  },
+  "many_files": {
+    "stats": { "pyarrow": 45.4, "java_arrow": 71.5, "spark": 368.2 },
+    "add_column": { "pyarrow": 786.9, "spark": 3206.5 },
+    "drop_column": { "pyarrow": 562.8, "spark": 2183.0 }
+  },
+  "warmup_overhead_ms": {
+    "spark": 2046.4,
+    "java_arrow": 1039.3
+  }
+}
